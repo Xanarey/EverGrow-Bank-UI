@@ -1,0 +1,154 @@
+/* HelloAuthUser.css */
+
+.navigation a, .navigation button, .navigation input {
+    margin-left: 10px; /* Расстояние между элементами */
+    padding: 8px 15px; /* Увеличенный отступ для удобства нажатия */
+    font-size: 16px; /* Более крупный размер шрифта для лучшей видимости */
+    font-weight: bold; /* Жирный шрифт для лучшей видимости */
+    min-width: 100px; /* Минимальная ширина для улучшения видимости и доступности */
+    border: none;
+    border-radius: 4px; /* Скругление углов */
+    transition: background-color 0.3s ease; /* Плавный переход для эффекта наведения */
+    cursor: pointer;
+    box-sizing: border-box; /* Убедитесь, что padding не добавляет ширину */
+}
+
+.navigation a:hover, .navigation button:hover {
+    background-color: #0056b3; /* Изменение цвета фона при наведении */
+    color: #ffffff; /* Цвет текста при наведении для контраста */
+}
+
+/* Уточняем стили для кнопок и ссылок для улучшения дизайна */
+.navigation button {
+    background-color: #007bff; /* Синий фон для кнопок */
+    color: white; /* Белый текст для контраста */
+}
+
+.navigation input[type="button"], .navigation input[type="submit"] {
+    background-color: #007bff; /* Синий фон для input-кнопок */
+    color: white; /* Белый текст для контраста */
+}
+
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    background-color: #d3d3d3; /* Цвет фона верхней панели */
+    padding: 10px 20px;
+    align-items: center;
+    /*background-color: #ffffff; !* Темно-синий цвет *!*/
+    height: 4cm;
+}
+
+.logo {
+    height: 1.5cm; /* Убедитесь, что логотип подходит по размеру */
+}
+
+
+.content {
+    padding-top: 2cm; /* Отступ, равный высоте top-bar, чтобы контент не перекрывался */
+}
+
+
+ body,  .app-container {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    height: auto;
+}
+
+
+.quick-access-container {
+    display: flex;
+    margin-bottom: 20px; /* Отступ снизу */
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.logo {
+    height: 3.5cm; /* Убедитесь, что лого подходит по размеру */
+}
+.navigation a {
+    background-color: #007bff; /* Цвет фона */
+    color: white; /* Цвет текста */
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+}
+
+
+.navigation button, .navigation input, .navigation a {
+    margin-left: 10px;
+}
+
+.content {
+    display: flex;
+}
+
+.sidebar, .sidebar-info {
+    width: 3cm;
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+}
+
+.quick-access-box {
+    width: 3cm;
+    height: 3cm;
+    background-color: #fff;
+    border: 2px solid pink;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+    margin-bottom: 10px;
+}
+
+.wallets-container {
+    margin-top: 20px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Добавляем пространство между кошельками */
+}
+
+.wallet-info {
+    background-color: #f0f0f0; /* Светлый фон для контраста */
+    border: 1px solid #ccc; /* Граница вокруг каждого кошелька */
+    border-radius: 10px; /* Скругляем углы рамки */
+    padding: 15px; /* Добавляем внутренние отступы для содержимого */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Добавляем тень для лучшей визуализации */
+    transition: transform 0.2s; /* Анимация для наведения */
+}
+
+.wallet-info:hover {
+    transform: scale(1.02); /* Небольшое увеличение при наведении */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Увеличиваем тень при наведении */
+}
+
+.transfer-button {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.logout-button {
+    background-color: #cc3f4d; /* Красный цвет для выхода */
+    color: #ffffff;
+    padding: 5px 10px; /* Меньше паддинг */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 150px;
+    margin-top: 20px; /* Отступ сверху */
+    margin-bottom: 40px; /* Отступ сверху */
+}

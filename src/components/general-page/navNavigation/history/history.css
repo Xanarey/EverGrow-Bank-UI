@@ -1,0 +1,49 @@
+/* history.css */
+
+.container {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px; /* Достаточно отступов для читабельности */
+    min-height: 100%; /* Гарантируем, что контейнер растягивается на всю высоту экрана */
+    width: 80%; /* Оптимальная ширина для чтения на больших экранах, адаптируется на маленьких */
+    max-width: 1200px; /* Максимальная ширина контейнера для предотвращения чрезмерного растягивания на очень больших экранах */
+    margin: 0 auto; /* Центрирование контейнера */
+    background-color: #fff; /* Фоновый цвет, если нужно */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Небольшая тень для визуального выделения */
+}
+
+.transaction-container {
+    width: 100%; /* Используем всю доступную ширину контейнера */
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Расстояние между блоками информации о транзакциях */
+    margin-bottom: 20px; /* Дополнительное пространство внизу, если нужно */
+    overflow-y: auto; /* Добавляем прокрутку, если контент превышает высоту экрана */
+    padding-bottom: 2em; /* Отступ снизу, чтобы последняя транзакция не "прилипала" к краю */
+}
+
+.transaction-info {
+    background-color: #f0f0f0; /* Светлый фон для контраста */
+    border: 1px solid #ccc; /* Граница */
+    border-radius: 8px; /* Скругление углов */
+    padding: 15px; /* Отступы внутри блока информации о транзакции */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень для визуального выделения */
+}
+
+button {
+    padding: 10px 15px;
+    margin-top: 20px; /* Отступ сверху для отделения кнопки от списка транзакций */
+    background-color: #007bff; /* Цвет фона кнопки */
+    color: white; /* Цвет текста */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease-in-out; /* Плавное изменение фона при наведении */
+}
+
+button:hover {
+    background-color: #0056b3;
+}
