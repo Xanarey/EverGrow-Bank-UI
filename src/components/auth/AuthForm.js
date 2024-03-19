@@ -24,7 +24,7 @@ function AuthForm() {
     };
 
     return (
-        <div class="auth-page-wrapper">
+        <div className="auth-page-wrapper">
         <div className="login-container">
             <form className="login-form" onSubmit={handleSubmit}>
                 <h2>Вход в систему</h2>
