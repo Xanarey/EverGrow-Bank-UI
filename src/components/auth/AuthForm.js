@@ -13,7 +13,7 @@ function AuthForm() {
         setErrorMessage(''); // Очистка предыдущего сообщения об ошибке при новой попытке отправки формы
 
         try {
-            const response = await axios.post('http://localhost:8080/auth', { email, password });
+            const response = await axios.post('http://51.250.90.24:8080/auth', { email, password });
             localStorage.setItem('token', response.data.token); // Сохраняем токен в localStorage
             window.location.href = '/hello-auth-user'; // Перенаправляем на страницу
         } catch (error) {

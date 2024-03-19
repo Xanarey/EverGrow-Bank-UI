@@ -50,7 +50,7 @@ const Pay = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8080/transfers',
+            const response = await axios.post('http://51.250.90.24:8080/transfers',
                 {
                 amount,
                 currency,

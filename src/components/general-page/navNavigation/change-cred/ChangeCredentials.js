@@ -17,7 +17,7 @@ const ChangeCredentials = () => {
     const [message, setMessage] = useState('');
 
     useEffect(() => {
-        fetch('http://localhost:8080/users/me', {
+        fetch('http://51.250.90.24:8080/users/me', {
             method: 'GET',
             headers: {
                 Authorization: token,
@@ -41,7 +41,7 @@ const ChangeCredentials = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        fetch('http://localhost:8080/users', {
+        fetch('http://51.250.90.24:8080/users', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ const ChangeCredentials = () => {
         }
 
         try {
-            const response = await axios.put('http://localhost:8080/users/change-password', {
+            const response = await axios.put('http://51.250.90.24:8080/users/change-password', {
                 oldPassword,
                 newPassword,
                 confirmPassword

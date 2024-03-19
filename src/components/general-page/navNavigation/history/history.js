@@ -11,7 +11,7 @@ const History = () => {
         const fetchTransactions = async () => {
             const token = localStorage.getItem('token'); // Предполагаем, что токен сохраняется в localStorage
             try {
-                const response = await axios.get('http://localhost:8080/transactions/my', {
+                const response = await axios.get('http://51.250.90.24:8080/transactions/my', {
                     headers: {
                         Authorization: token, // Также проверьте формат токена, возможно, нужно 'Bearer ' + token
                     },

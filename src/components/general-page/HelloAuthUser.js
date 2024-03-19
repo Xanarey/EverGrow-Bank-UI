@@ -18,7 +18,7 @@ function HelloAuthUser() {
             headers: { Authorization: `${token}` }
         };
 
-        axios.get('http://localhost:8080/balance/my', config)
+        axios.get('http://51.250.90.24:8080/balance/my', config)
             .then(response => {
                 setWallets(response.data);
             })
