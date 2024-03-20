@@ -12,17 +12,15 @@ pipeline {
             }
         }
 
-        stage('Install dependencies') {
-            steps {
-                npm install
-            }
-        }
-
+        ...
         stage('Build') {
             steps {
-                npm run build
+                sh 'npm install'
+                sh 'REACT_APP_API_URL=http://51.250.90.24 npm run build'
             }
         }
+        ...
+
 
         stage('Deploy to Yandex Cloud') {
             steps {
