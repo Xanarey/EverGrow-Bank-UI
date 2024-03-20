@@ -19,7 +19,7 @@ pipeline {
                 sh 'REACT_APP_API_URL=http://51.250.90.24 npm run build'
             }
         }
-        ...
+
 
 
         stage('Deploy to Yandex Cloud') {
