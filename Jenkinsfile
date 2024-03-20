@@ -4,9 +4,10 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/Xanarey/EverGrow-Bank-UI.git'
+                git branch: 'main', url: 'https://github.com/Xanarey/EverGrow-Bank-UI.git'
             }
         }
+
 
         stage('Install dependencies') {
             steps {
