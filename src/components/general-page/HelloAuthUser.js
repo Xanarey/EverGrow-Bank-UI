@@ -6,6 +6,7 @@ import './HelloAuthUser.css';
 function HelloAuthUser() {
     const [wallets, setWallets] = useState([]);
     const navigate = useNavigate();
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -18,7 +19,7 @@ function HelloAuthUser() {
             headers: { Authorization: `${token}` }
         };
 
-        axios.get('http://51.250.90.24:8080/balance/my', config)
+        axios.get(apiUrl + '/balance/my', config)
             .then(response => {
                 setWallets(response.data);
             })
@@ -26,7 +27,7 @@ function HelloAuthUser() {
                 console.error('Ошибка при получении информации о кошельках:', error);
                 navigate('/'); // Перенаправить на страницу входа
             });
-    }, [navigate]);
+    }, [apiUrl, navigate]);
 
     const handleLogout = () => {
         localStorage.removeItem('token');

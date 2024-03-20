@@ -7,13 +7,15 @@ function AuthForm() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState(''); // Состояние для хранения сообщения об ошибке
+    const apiUrl = process.env.REACT_APP_API_URL;
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         setErrorMessage(''); // Очистка предыдущего сообщения об ошибке при новой попытке отправки формы
 
         try {
-            const response = await axios.post('http://51.250.90.24:8080/auth', { email, password });
+            const response = await axios.post(apiUrl + '/auth', { email, password });
             localStorage.setItem('token', response.data.token); // Сохраняем токен в localStorage
             window.location.href = '/hello-auth-user'; // Перенаправляем на страницу
         } catch (error) {

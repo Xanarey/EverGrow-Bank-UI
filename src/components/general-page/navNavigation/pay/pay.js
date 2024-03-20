@@ -15,6 +15,8 @@ const Pay = () => {
     const [showModal, setShowModal] = useState(false);
     const [message, setMessage] = useState('');
     const [progress, setProgress] = useState(0); // Для отслеживания прогресса шкалы
+    const apiUrl = process.env.REACT_APP_API_URL;
+
 
     const [sampleTransactions, setSampleTransactions] = useState(() => {
         const savedTransactions = localStorage.getItem('sampleTransactions');
@@ -50,7 +52,7 @@ const Pay = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post('http://51.250.90.24:8080/transfers',
+            const response = await axios.post(apiUrl + '/transfers',
                 {
                 amount,
                 currency,

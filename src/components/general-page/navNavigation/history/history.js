@@ -6,12 +6,14 @@ import './history.css';
 const History = () => {
     const [transactions, setTransactions] = useState([]);
     const navigate = useNavigate();
+    const apiUrl = process.env.REACT_APP_API_URL;
+
 
     useEffect(() => {
         const fetchTransactions = async () => {
             const token = localStorage.getItem('token'); // Предполагаем, что токен сохраняется в localStorage
             try {
-                const response = await axios.get('http://51.250.90.24:8080/transactions/my', {
+                const response = await axios.get(apiUrl + '/transactions/my', {
                     headers: {
                         Authorization: token, // Также проверьте формат токена, возможно, нужно 'Bearer ' + token
                     },
@@ -24,7 +26,7 @@ const History = () => {
         };
 
         fetchTransactions();
-    }, []); // Пустой массив зависимостей означает, что эффект выполнится один раз после монтирования компонента
+    }, [apiUrl]); // Пустой массив зависимостей означает, что эффект выполнится один раз после монтирования компонента
 
     return (
         <div className="container">

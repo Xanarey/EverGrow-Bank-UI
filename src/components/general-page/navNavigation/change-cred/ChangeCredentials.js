@@ -15,9 +15,11 @@ const ChangeCredentials = () => {
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [message, setMessage] = useState('');
+    const apiUrl = process.env.REACT_APP_API_URL;
+
 
     useEffect(() => {
-        fetch('http://51.250.90.24:8080/users/me', {
+        fetch(apiUrl + '/users/me', {
             method: 'GET',
             headers: {
                 Authorization: token,
@@ -37,11 +39,11 @@ const ChangeCredentials = () => {
                 setError(error.message);
                 setLoading(false);
             });
-    }, [token]);
+    }, [apiUrl, token]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        fetch('http://51.250.90.24:8080/users', {
+        fetch(apiUrl + '/users', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -71,7 +73,7 @@ const ChangeCredentials = () => {
         }
 
         try {
-            const response = await axios.put('http://51.250.90.24:8080/users/change-password', {
+            const response = await axios.put(apiUrl + '/users/change-password', {
                 oldPassword,
                 newPassword,
                 confirmPassword
