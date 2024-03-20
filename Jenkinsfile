@@ -32,6 +32,9 @@ pipeline {
                 sh 'ssh engend@51.250.90.24 "mkdir -p ~/evergrow-bank-ui"'
                 sh "sed -i '' 's/http:\\/\\/localhost/http:\\/\\/51.250.90.24/g' .env.production"
 
+                sh "scp /Users/engend/IdeaProjects/evergrow-bank-ui/public/index.html engend@51.250.90.24:~/evergrow-bank-ui/build/"
+
+
                 sh 'scp .env.production engend@51.250.90.24:~/evergrow-bank-ui'
                 sh 'scp package.json engend@51.250.90.24:~/evergrow-bank-ui'
                 sh 'scp Dockerfile engend@51.250.90.24:~/evergrow-bank-ui'
