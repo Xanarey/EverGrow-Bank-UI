@@ -5,7 +5,6 @@ pipeline {
         nodejs 'my_nodejs'
     }
 
-
     stages {
         stage('Checkout') {
             steps {
@@ -13,53 +12,58 @@ pipeline {
             }
         }
 
-
-
         stage('Install dependencies') {
             steps {
                 sh 'npm install'
             }
         }
 
+        stage('Test') {
+            steps {
+                sh 'npm test'
+            }
+        }
+
         stage('Build') {
             steps {
-                sh 'npm run build'
+                sh 'REACT_APP_API_URL=http://51.250.90.24 npm run build'
             }
         }
 
         stage('Deploy to Yandex Cloud') {
-                    steps {
-                        sh 'ssh engend@51.250.90.24 "mkdir -p ~/evergrow-bank-ui"'
-                        sh "sed -i '' 's/http:\\/\\/localhost/http:\\/\\/51.250.90.24/g' .env.production"
-
-                        // Проверяем наличие файла index.html в директории build/
-                        script {
-                            def isIndexHtmlExist = sh(script: 'ls build/index.html', returnStatus: true) == 0
-                            if (isIndexHtmlExist) {
-                                sh "scp build/index.html engend@51.250.90.24:~/evergrow-bank-ui/build/"
-                            } else {
-                                error "Файл index.html не найден в директории build/"
-                            }
-                        }
-
-                        // Проверяем, что директория build/ не пуста перед копированием
-                        script {
-                            def isBuildNotEmpty = sh(script: 'ls -A build/', returnStatus: true) == 0
-                            if (isBuildNotEmpty) {
-                                sh 'scp -r build/ engend@51.250.90.24:~/evergrow-bank-ui'
-                            } else {
-                                echo "Директория build/ пуста или не существует"
-                            }
-                        }
-
-                        sh 'scp .env.production engend@51.250.90.24:~/evergrow-bank-ui'
-                        sh 'scp package.json engend@51.250.90.24:~/evergrow-bank-ui'
-                        sh 'scp Dockerfile engend@51.250.90.24:~/evergrow-bank-ui'
-                        sh 'scp default.conf engend@51.250.90.24:~/evergrow-bank-ui'
-
-                        sh 'ssh engend@51.250.90.24 "docker-compose -f /home/engend/EverGrowFinance/docker-compose.yml down && docker-compose -f /home/engend/EverGrowFinance/docker-compose.yml up -d"'
-                    }
-
+            steps {
+                sshPublisher(
+                    publishers: [
+                        sshPublisherDesc(
+                            configName: 'evergrow-server',
+                            transfers: [
+                                sshTransfer(
+                                    sourceFiles: 'build/**/*',
+                                    removePrefix: 'build',
+                                    remoteDirectory: 'evergrow-bank-ui',
+                                    execCommand: 'docker-compose -f /home/engend/EverGrowFinance/docker-compose.yml down && docker-compose -f /home/engend/EverGrowFinance/docker-compose.yml up -d'
+                                ),
+                                sshTransfer(
+                                    sourceFiles: '.env.production',
+                                    remoteDirectory: 'evergrow-bank-ui'
+                                ),
+                                sshTransfer(
+                                    sourceFiles: 'package.json',
+                                    remoteDirectory: 'evergrow-bank-ui'
+                                ),
+                                sshTransfer(
+                                    sourceFiles: 'Dockerfile',
+                                    remoteDirectory: 'evergrow-bank-ui'
+                                ),
+                                sshTransfer(
+                                    sourceFiles: 'default.conf',
+                                    remoteDirectory: 'evergrow-bank-ui'
+                                )
+                            ]
+                        )
+                    ]
+                )
+            }
         }
     }
 
