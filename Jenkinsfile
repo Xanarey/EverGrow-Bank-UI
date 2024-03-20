@@ -2,8 +2,9 @@ pipeline {
     agent any
 
     tools {
-            nodejs "my_nodejs"
-        }
+        nodejs 'my_nodejs'
+    }
+
 
     stages {
         stage('Checkout') {
@@ -11,6 +12,7 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/Xanarey/EverGrow-Bank-UI.git'
             }
         }
+
 
 
         stage('Install dependencies') {
