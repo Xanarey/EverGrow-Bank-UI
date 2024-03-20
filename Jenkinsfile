@@ -29,7 +29,7 @@ pipeline {
 
         stage('Deploy to Yandex Cloud') {
             steps {
-
+                sh 'ssh engend@51.250.90.24 "mkdir -p ~/evergrow-bank-ui"'
                 sh "sed -i '' 's/http:\\/\\/localhost/http:\\/\\/51.250.90.24/g' .env.production"
 
                 sh 'scp .env.production engend@51.250.90.24:~/evergrow-bank-ui'
