@@ -33,6 +33,7 @@ pipeline {
                 sh "sed -i '' 's/http:\\/\\/localhost/http:\\/\\/51.250.90.24/g' .env.production"
 
                 sh 'scp .env.production engend@51.250.90.24:~/evergrow-bank-ui'
+                sh 'scp package.json engend@51.250.90.24:~/evergrow-bank-ui'
                 sh 'scp Dockerfile engend@51.250.90.24:~/evergrow-bank-ui'
                 sh 'scp default.conf engend@51.250.90.24:~/evergrow-bank-ui'
                 sh 'scp -r build/ engend@51.250.90.24:~/evergrow-bank-ui'
