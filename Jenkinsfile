@@ -37,7 +37,8 @@ pipeline {
                 sh 'scp default.conf engend@51.250.90.24:~/evergrow-bank-ui'
                 sh 'scp -r build/ engend@51.250.90.24:~/evergrow-bank-ui'
 
-                sh 'ssh engend@51.250.90.24 "docker-compose -f ~/evergrow-bank-ui/docker-compose.yml down && docker-compose -f ~/evergrow-bank-ui/docker-compose.yml up -d"'
+                sh 'ssh engend@51.250.90.24 "docker-compose -f /home/engend/EverGrowFinance/docker-compose.yml down && docker-compose -f /home/engend/EverGrowFinance/docker-compose.yml up -d"'
+
             }
         }
     }
