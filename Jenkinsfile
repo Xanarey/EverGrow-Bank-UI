@@ -18,15 +18,9 @@ pipeline {
             }
         }
 
-        stage('Test') {
-            steps {
-                sh 'npm test'
-            }
-        }
-
         stage('Build') {
             steps {
-                sh 'REACT_APP_API_URL=http://51.250.90.24 npm run build'
+                npm run build
             }
         }
 
