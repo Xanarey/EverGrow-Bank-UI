@@ -1,6 +1,13 @@
 pipeline {
     agent any
 
+    environment {
+        DOCKER_IMAGE_NAME = 'evergrow-bank-ui'
+        VM_USER = 'engend'
+        VM_HOST = '51.250.90.24'
+        DEPLOY_PATH = '~'
+    }
+
     tools {
         nodejs 'my_nodejs'
     }
@@ -12,55 +19,35 @@ pipeline {
             }
         }
 
-
-        stage('Build') {
+        stage('Build Docker Image') {
             steps {
-                sh 'npm install'
-                sh 'REACT_APP_API_URL=http://51.250.90.24 npm run build'
+                script {
+                    sh 'docker build -t ${DOCKER_IMAGE_NAME} .'
+                    sh 'docker save ${DOCKER_IMAGE_NAME} | gzip > ${DOCKER_IMAGE_NAME}.tar.gz'
+                }
             }
         }
 
-
-
         stage('Deploy to Yandex Cloud') {
             steps {
-                sshPublisher(
-                    publishers: [
-                        sshPublisherDesc(
-                            configName: 'evergrow-server',
-                            transfers: [
-                                sshTransfer(
-                                    sourceFiles: 'build/**/*',
-                                    removePrefix: 'build',
-                                    remoteDirectory: 'evergrow-bank-ui',
-                                    execCommand: 'docker-compose -f /home/engend/EverGrowFinance/docker-compose.yml down && docker-compose -f /home/engend/EverGrowFinance/docker-compose.yml up -d'
-                                ),
-                                sshTransfer(
-                                    sourceFiles: '.env.production',
-                                    remoteDirectory: 'evergrow-bank-ui'
-                                ),
-                                sshTransfer(
-                                    sourceFiles: 'package.json',
-                                    remoteDirectory: 'evergrow-bank-ui'
-                                ),
-                                sshTransfer(
-                                    sourceFiles: 'Dockerfile',
-                                    remoteDirectory: 'evergrow-bank-ui'
-                                ),
-                                sshTransfer(
-                                    sourceFiles: 'default.conf',
-                                    remoteDirectory: 'evergrow-bank-ui'
-                                )
-                            ]
-                        )
-                    ]
-                )
+                sh "scp -o StrictHostKeyChecking=no ${DOCKER_IMAGE_NAME}.tar.gz ${VM_USER}@${VM_HOST}:${DEPLOY_PATH}"
+                sh "scp -o StrictHostKeyChecking=no docker-compose.yml ${VM_USER}@${VM_HOST}:${DEPLOY_PATH}"
+
+                // Разворачиваем приложение на сервере
+                sh """
+                    ssh -o StrictHostKeyChecking=no ${VM_USER}@${VM_HOST} '
+                        cd ${DEPLOY_PATH} && \
+                        gunzip -c ${DOCKER_IMAGE_NAME}.tar.gz | docker load && \
+                        docker-compose up -d --build frontend
+                    '
+                """
             }
         }
     }
 
     post {
         always {
+            // Очистка рабочего пространства после завершения пайплайна
             cleanWs()
         }
     }
