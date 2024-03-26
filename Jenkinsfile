@@ -27,6 +27,14 @@ pipeline {
                     }
                 }
 
+        stage('Show PATH') {
+            steps {
+                script {
+                    sh 'echo $PATH'
+                }
+            }
+        }
+
         stage('Deploy to Yandex Cloud') {
             steps {
                 sh "scp -o StrictHostKeyChecking=no ${DOCKER_IMAGE_NAME}.tar.gz ${VM_USER}@${VM_HOST}:${DEPLOY_PATH}"
