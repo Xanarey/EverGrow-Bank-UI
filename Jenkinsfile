@@ -22,6 +22,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
+                    sh '/usr/local/bin/docker build -t evergrow-bank-ui .'
                     sh 'docker build -t ${DOCKER_IMAGE_NAME} .'
                     sh 'docker save ${DOCKER_IMAGE_NAME} | gzip > ${DOCKER_IMAGE_NAME}.tar.gz'
                 }
