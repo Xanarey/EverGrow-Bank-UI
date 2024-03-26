@@ -12,6 +12,14 @@ pipeline {
         nodejs 'my_nodejs'
     }
 
+    stage('Show PATH') {
+                steps {
+                    script {
+                        sh 'echo $PATH'
+                    }
+                }
+            }
+
     stages {
         stage('Checkout') {
             steps {
@@ -27,13 +35,7 @@ pipeline {
                     }
                 }
 
-        stage('Show PATH') {
-            steps {
-                script {
-                    sh 'echo $PATH'
-                }
-            }
-        }
+
 
         stage('Deploy to Yandex Cloud') {
             steps {
