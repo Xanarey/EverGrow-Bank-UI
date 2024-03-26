@@ -12,15 +12,17 @@ pipeline {
         nodejs 'my_nodejs'
     }
 
-    stage('Show PATH') {
-                steps {
-                    script {
-                        sh 'echo $PATH'
-                    }
-                }
-            }
+
 
     stages {
+        stage('Show PATH') {
+                        steps {
+                            script {
+                                sh 'echo $PATH'
+                            }
+                        }
+                    }
+
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/Xanarey/EverGrow-Bank-UI.git'
