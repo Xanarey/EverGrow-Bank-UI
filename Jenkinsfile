@@ -16,12 +16,12 @@ pipeline {
 
     stages {
         stage('Show PATH') {
-                        steps {
-                            script {
-                                sh 'echo $PATH'
-                            }
-                        }
-                    }
+            steps {
+                script {
+                    sh 'echo $PATH'
+                }
+            }
+        }
 
         stage('Checkout') {
             steps {
