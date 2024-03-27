@@ -1,64 +1,47 @@
 pipeline {
     agent any
 
-    environment {
-        DOCKER_IMAGE_NAME = 'evergrow-bank-ui'
-        VM_USER = 'engend'
-        VM_HOST = '51.250.90.24'
-        DEPLOY_PATH = '~'
+
     }
-
-    tools {
-        nodejs 'my_nodejs'
-    }
-
-
 
     stages {
-        stage('Show PATH') {
-            steps {
-                script {
-                    sh 'echo $PATH'
-                }
-            }
-        }
-
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/Xanarey/EverGrow-Bank-UI.git'
+                git 'https://github.com/Xanarey/EverGrow-Bank-UI.git'
             }
         }
 
-        stage('Build Docker Image') {
-                    steps {
-                        script {
-                            sh '/bin/sh -c "docker build -t evergrow-bank-ui ."'
-                        }
-                    }
-                }
+        stage('Build') {
+            steps {
+                sh 'npm install'
+                sh 'npm run build'
+            }
+        }
 
-
+        stage('SCP to Yandex Cloud') {
+            steps {
+                sh 'ssh engend@51.250.90.24 "mkdir -p ~/evergrow-bank-ui"'
+                // Копируем Dockerfile
+                sh 'scp Dockerfile engend@51.250.90.24:evergrow-bank-ui'
+                // Копируем Jenkinsfile (если он нужен на сервере)
+                sh 'scp Jenkinsfile engend@51.250.90.24:evergrow-bank-ui'
+                // Копируем конфигурационные файлы
+                sh 'scp default.conf engend@51.250.90.24:evergrow-bank-ui'
+                // Копируем package.json и package-lock.json
+                sh 'scp package*.json engend@51.250.90.24:evergrow-bank-ui'
+                // И любые другие файлы, которые вам нужно скопировать
+            }
+        }
 
         stage('Deploy to Yandex Cloud') {
             steps {
-                sh "scp -o StrictHostKeyChecking=no ${DOCKER_IMAGE_NAME}.tar.gz ${VM_USER}@${VM_HOST}:${DEPLOY_PATH}"
-                sh "scp -o StrictHostKeyChecking=no docker-compose.yml ${VM_USER}@${VM_HOST}:${DEPLOY_PATH}"
-
-                // Разворачиваем приложение на сервере
-                sh """
-                    ssh -o StrictHostKeyChecking=no ${VM_USER}@${VM_HOST} '
-                        cd ${DEPLOY_PATH} && \
-                        gunzip -c ${DOCKER_IMAGE_NAME}.tar.gz | docker load && \
-                        docker-compose up -d --build frontend
-                    '
-                """
+                sh 'ssh engend@51.250.90.24 "docker-compose -f ~/EverGrowFinance/docker-compose.yml up -d frontend"'
             }
         }
     }
 
     post {
         always {
-            // Очистка рабочего пространства после завершения пайплайна
             cleanWs()
         }
     }
