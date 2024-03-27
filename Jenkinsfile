@@ -38,7 +38,6 @@ pipeline {
                 sh 'ssh engend@51.250.90.24 "docker-compose -f ~/EverGrowFinance/docker-compose.yml up -d frontend"'
             }
         }
-    }
 
     post {
         always {
