@@ -5,7 +5,8 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Получаем код из репозитория GitHub
-                git 'https://github.com/Xanarey/EverGrow-Bank-UI.git'
+                git branch: 'main',
+                                    url: 'https://github.com/Xanarey/EverGrow-Bank-UI.git'
             }
         }
 
