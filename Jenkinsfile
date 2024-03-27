@@ -24,11 +24,6 @@ pipeline {
                 sh 'scp package*.json engend@51.250.90.24:~/evergrow-bank-ui'
                 // Дополнительно копируем собранные файлы в директорию фронтенда
                 sh 'scp -r build/* engend@51.250.90.24:~/evergrow-bank-ui'
-            }
-        }
-
-        stage('Deploy to Yandex Cloud') {
-            steps {
                 sh 'ssh engend@51.250.90.24 "docker-compose -f ~/evergrow-bank-ui/docker-compose.yml up -d frontend"'
             }
         }
