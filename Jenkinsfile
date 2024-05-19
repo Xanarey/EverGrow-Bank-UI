@@ -18,14 +18,14 @@ pipeline {
 
         stage('Deploy to Yandex Cloud') {
             steps {
-            sh 'ssh engend@84.201.138.119 "mkdir -p ~/evergrow-bank-ui"'
-            sh 'scp Dockerfile engend@84.201.138.119:~/evergrow-bank-ui'
-            sh 'scp Jenkinsfile engend@84.201.138.119:~/evergrow-bank-ui'
-            sh 'scp default.conf engend@84.201.138.119:~/evergrow-bank-ui'
-            sh 'scp package*.json engend@84.201.138.119:~/evergrow-bank-ui'
+            sh 'ssh ever-admin@84.201.138.119 "mkdir -p ~/evergrow-bank-ui"'
+            sh 'scp Dockerfile ever-admin@84.201.138.119:~/evergrow-bank-ui'
+            sh 'scp Jenkinsfile ever-admin@84.201.138.119:~/evergrow-bank-ui'
+            sh 'scp default.conf ever-admin@84.201.138.119:~/evergrow-bank-ui'
+            sh 'scp package*.json ever-admin@84.201.138.119:~/evergrow-bank-ui'
 
-            sh 'scp -r build/* engend@84.201.138.119:~/evergrow-bank-ui'
-            sh 'ssh engend@84.201.138.119 "docker-compose -f ~/docker-compose.yml up -d frontend"'
+            sh 'scp -r build/* ever-admin@84.201.138.119:~/evergrow-bank-ui'
+            sh 'ssh ever-admin@84.201.138.119 "docker-compose -f ~/docker-compose.yml up -d frontend"'
 
             }
         }
