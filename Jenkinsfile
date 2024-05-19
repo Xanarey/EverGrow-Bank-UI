@@ -23,6 +23,7 @@ pipeline {
             sh 'scp -i /Users/engend/Desktop/keys/edKey Jenkinsfile ever-admin@84.201.138.119:~/evergrow-bank-ui'
             sh 'scp -i /Users/engend/Desktop/keys/edKey default.conf ever-admin@84.201.138.119:~/evergrow-bank-ui'
             sh 'scp -i /Users/engend/Desktop/keys/edKey package*.json ever-admin@84.201.138.119:~/evergrow-bank-ui'
+            sh 'scp -i /Users/engend/Desktop/keys/edKey -r public ever-admin@84.201.138.119:~/evergrow-bank-ui'
 
             sh 'scp -i /Users/engend/Desktop/keys/edKey -r build/* ever-admin@84.201.138.119:~/evergrow-bank-ui'
             sh 'ssh -i /Users/engend/Desktop/keys/edKey ever-admin@84.201.138.119 "docker-compose -f ~/docker-compose.yml up -d frontend"'
