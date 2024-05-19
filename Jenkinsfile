@@ -23,9 +23,9 @@ pipeline {
             sh 'scp Jenkinsfile engend@84.201.138.119:~/evergrow-bank-ui'
             sh 'scp default.conf engend@84.201.138.119:~/evergrow-bank-ui'
             sh 'scp package*.json engend@84.201.138.119:~/evergrow-bank-ui'
-            // Дополнительно копируем собранные файлы в директорию фронтенда
+
             sh 'scp -r build/* engend@84.201.138.119:~/evergrow-bank-ui'
-            sh 'ssh engend@84.201.138.119 "docker-compose -f ~/EverGrowFinance/docker-compose.yml up -d frontend"'
+            sh 'ssh engend@84.201.138.119 "docker-compose -f ~/docker-compose.yml up -d frontend"'
 
             }
         }
