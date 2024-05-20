@@ -18,7 +18,7 @@ pipeline {
 
         stage('Deploy to Yandex Cloud') {
             steps {
-            sh "sed -i '' 's/http:\\/\\/localhost/http:\\/\\/158.160.165.159/g' .env.production"
+//             sh "sed -i '' 's/http:\\/\\/localhost/http:\\/\\/158.160.165.159/g' .env.production"
 
             sh 'ssh -i /Users/engend/Desktop/keys/edKey ever-cloud@158.160.165.159 "mkdir -p ~/evergrow-bank-ui"'
             sh 'scp -i /Users/engend/Desktop/keys/edKey Dockerfile ever-cloud@158.160.165.159:~/evergrow-bank-ui'
