@@ -30,7 +30,8 @@ pipeline {
             sh 'scp -i /Users/engend/Desktop/keys/edKey -r src ever-cloud@158.160.165.159:~/evergrow-bank-ui'
 
             sh 'scp -i /Users/engend/Desktop/keys/edKey -r build/* ever-cloud@158.160.165.159:~/evergrow-bank-ui'
-            sh 'ssh -i /Users/engend/Desktop/keys/edKey ever-cloud@158.160.165.159 "docker-compose -f ~/docker-compose.yml up -d frontend"'
+            sh 'ssh -i /Users/engend/Desktop/keys/edKey ever-cloud@158.160.165.159 "docker-compose -f ~/docker-compose.yml up -d --build frontend"'
+
 
             }
         }
