@@ -7,7 +7,7 @@ function AuthForm() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState(''); // Состояние для хранения сообщения об ошибке
-    const apiUrl = "158.160.165.159:8080";
+    const apiUrl = "http://158.160.165.159:8080";
 
 
     const handleSubmit = async (event) => {
