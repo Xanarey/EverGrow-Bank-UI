@@ -10,11 +10,15 @@ pipeline {
         }
 
         stage('Build') {
-            steps {
-                sh 'npm install'
-                sh 'npm run build'
-            }
-        }
+                    steps {
+                        script {
+                            docker.image('node:16').inside {
+                                sh 'npm install'
+                                sh 'npm run build'
+                            }
+                        }
+                    }
+                }
 
         stage('Deploy to Yandex Cloud') {
             steps {
