@@ -8,16 +8,16 @@ pipeline {
             }
         }
 
-        stage('Build') {
-            steps {
-                script {
-                    docker.image('node:16').inside {
-                        sh 'npm install'
-                        sh 'npm run build'
-                    }
-                }
-            }
-        }
+//         stage('Build') {
+//             steps {
+//                 script {
+//                     docker.image('node:16').inside {
+//                         sh 'npm install'
+//                         sh 'npm run build'
+//                     }
+//                 }
+//             }
+//         }
 
         stage('Deploy to Yandex Cloud') {
             steps {
