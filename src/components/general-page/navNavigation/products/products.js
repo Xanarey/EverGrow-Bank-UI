@@ -7,7 +7,7 @@ const Products = () => {
 
     return (
         <div className="container">
-            <h1>Тут будут внешние ресурсы</h1>
+            <h1>Тут будут внешние ресурсы 123</h1>
             <button onClick={() => navigate('/hello-auth-user')}>Вернуться на главную</button>
         </div>
     );
