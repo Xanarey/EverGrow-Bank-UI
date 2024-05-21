@@ -6,7 +6,7 @@ pipeline {
         REMOTE_PATH = '~'
         DOCKER_COMPOSE_FILE = 'docker-compose.yml'
         DOCKER_FILE = 'Dockerfile'
-        P_KEY = '/users/engend/desktop/keys/edkey'
+        P_KEY = '/Users/engend/Desktop/keys/edKey'
         USER = 'ever-cloud'
         FOLDER = '~/evergrow-bank-ui'
     }
@@ -30,20 +30,19 @@ pipeline {
             steps {
                 script {
                     sh """
-                        sh 'ssh -v -i ${P_KEY} ${USER}@${SERVER_IP} "mkdir -p ${FOLDER}"'
-                        sh 'scp -i ${P_KEY} Dockerfile ${USER}@${SERVER_IP}:${FOLDER}'
-                        sh 'scp -i ${P_KEY} .env.production ${USER}@${SERVER_IP}:${FOLDER}'
-                        sh 'scp -i ${P_KEY} Jenkinsfile ${USER}@${SERVER_IP}:${FOLDER}'
-                        sh 'scp -i ${P_KEY} default.conf ${USER}@${SERVER_IP}:${FOLDER}'
-                        sh 'scp -i ${P_KEY} package*.json ${USER}@${SERVER_IP}:${FOLDER}'
-                        sh 'scp -i ${P_KEY} -r public ${USER}@${SERVER_IP}:${FOLDER}'
-                        sh 'scp -i ${P_KEY} -r src ${USER}@${SERVER_IP}:${FOLDER}'
-                    
-                        sh 'scp -i ${P_KEY} -r build/* ${USER}@${SERVER_IP}:${FOLDER}'
-                        sh 'ssh -i ${P_KEY} ${USER}@${SERVER_IP} "docker-compose -f ~/docker-compose.yml up -d --build frontend"'
+                        ssh -v -i ${P_KEY} ${USER}@${SERVER_IP} "mkdir -p ${FOLDER}"
+                        scp -i ${P_KEY} Dockerfile ${USER}@${SERVER_IP}:${FOLDER}
+                        scp -i ${P_KEY} .env.production ${USER}@${SERVER_IP}:${FOLDER}
+                        scp -i ${P_KEY} Jenkinsfile ${USER}@${SERVER_IP}:${FOLDER}
+                        scp -i ${P_KEY} default.conf ${USER}@${SERVER_IP}:${FOLDER}
+                        scp -i ${P_KEY} package*.json ${USER}@${SERVER_IP}:${FOLDER}
+                        scp -i ${P_KEY} -r public ${USER}@${SERVER_IP}:${FOLDER}
+                        scp -i ${P_KEY} -r src ${USER}@${SERVER_IP}:${FOLDER}
+
+                        scp -i ${P_KEY} -r build/* ${USER}@${SERVER_IP}:${FOLDER}
+                        ssh -i ${P_KEY} ${USER}@${SERVER_IP} "docker-compose -f ${REMOTE_PATH}/docker-compose.yml up -d --build frontend"
                     """
                 }
-                
             }
         }
     }
