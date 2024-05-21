@@ -1,11 +1,21 @@
 pipeline {
     agent any
 
+    environment {
+        SERVER_IP = '158.160.154.130'
+        REMOTE_PATH = '~'
+        DOCKER_COMPOSE_FILE = 'docker-compose.yml'
+        DOCKER_FILE = 'Dockerfile'
+        P_KEY = '/Users/engend/Desktop/keys/edKey'
+        USER = 'ever-cloud'
+        FOLDER = '~/evergrow-bank-ui'
+    }
+
     stages {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                                    url: 'https://github.com/Xanarey/EverGrow-Bank-UI.git'
+                url: 'https://github.com/Xanarey/EverGrow-Bank-UI.git'
             }
         }
 
@@ -18,21 +28,22 @@ pipeline {
 
         stage('Deploy to Yandex Cloud') {
             steps {
-            sh "sed -i '' 's/http:\\/\\/localhost/http:\\/\\/158.160.154.130/g' .env.production"
-
-            sh 'ssh -i /Users/engend/Desktop/keys/edKey ever-cloud@158.160.154.130 "mkdir -p ~/evergrow-bank-ui"'
-            sh 'scp -i /Users/engend/Desktop/keys/edKey Dockerfile ever-cloud@158.160.154.130:~/evergrow-bank-ui'
-            sh 'scp -i /Users/engend/Desktop/keys/edKey .env.production ever-cloud@158.160.154.130:~/evergrow-bank-ui'
-            sh 'scp -i /Users/engend/Desktop/keys/edKey Jenkinsfile ever-cloud@158.160.154.130:~/evergrow-bank-ui'
-            sh 'scp -i /Users/engend/Desktop/keys/edKey default.conf ever-cloud@158.160.154.130:~/evergrow-bank-ui'
-            sh 'scp -i /Users/engend/Desktop/keys/edKey package*.json ever-cloud@158.160.154.130:~/evergrow-bank-ui'
-            sh 'scp -i /Users/engend/Desktop/keys/edKey -r public ever-cloud@158.160.154.130:~/evergrow-bank-ui'
-            sh 'scp -i /Users/engend/Desktop/keys/edKey -r src ever-cloud@158.160.154.130:~/evergrow-bank-ui'
-
-            sh 'scp -i /Users/engend/Desktop/keys/edKey -r build/* ever-cloud@158.160.154.130:~/evergrow-bank-ui'
-            sh 'ssh -i /Users/engend/Desktop/keys/edKey ever-cloud@158.160.154.130 "docker-compose -f ~/docker-compose.yml up -d --build frontend"'
-
-
+                script {
+                    sh """
+                        sh 'ssh -i ${P_KEY} ${USER}@${SERVER_IP} "mkdir -p ${FOLDER}"'
+                        sh 'scp -i ${P_KEY} Dockerfile ${USER}@${SERVER_IP}:${FOLDER}'
+                        sh 'scp -i ${P_KEY} .env.production ${USER}@${SERVER_IP}:${FOLDER}'
+                        sh 'scp -i ${P_KEY} Jenkinsfile ${USER}@${SERVER_IP}:${FOLDER}'
+                        sh 'scp -i ${P_KEY} default.conf ${USER}@${SERVER_IP}:${FOLDER}'
+                        sh 'scp -i ${P_KEY} package*.json ${USER}@${SERVER_IP}:${FOLDER}'
+                        sh 'scp -i ${P_KEY} -r public ${USER}@${SERVER_IP}:${FOLDER}'
+                        sh 'scp -i ${P_KEY} -r src ${USER}@${SERVER_IP}:${FOLDER}'
+                    
+                        sh 'scp -i ${P_KEY} -r build/* ${USER}@${SERVER_IP}:${FOLDER}'
+                        sh 'ssh -i ${P_KEY} ${USER}@${SERVER_IP} "docker-compose -f ~/docker-compose.yml up -d --build frontend"'
+                    """
+                }
+                
             }
         }
     }
