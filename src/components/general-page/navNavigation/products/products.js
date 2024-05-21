@@ -7,7 +7,7 @@ const Products = () => {
 
     return (
         <div className="container">
-            <h1>Тут будут внешние ресурсы new 123 REACT_APP_API_URL </h1>
+            <h1>Тут будут внешние ресурсы</h1>
             <button onClick={() => navigate('/hello-auth-user')}>Вернуться на главную</button>
         </div>
     );
