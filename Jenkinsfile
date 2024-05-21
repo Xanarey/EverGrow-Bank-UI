@@ -30,7 +30,7 @@ pipeline {
             steps {
                 script {
                     sh """
-                        sh 'ssh -i ${P_KEY} ${USER}@${SERVER_IP} "mkdir -p ${FOLDER}"'
+                        sh 'ssh -v -i ${P_KEY} ${USER}@${SERVER_IP} "mkdir -p ${FOLDER}"'
                         sh 'scp -i ${P_KEY} Dockerfile ${USER}@${SERVER_IP}:${FOLDER}'
                         sh 'scp -i ${P_KEY} .env.production ${USER}@${SERVER_IP}:${FOLDER}'
                         sh 'scp -i ${P_KEY} Jenkinsfile ${USER}@${SERVER_IP}:${FOLDER}'
