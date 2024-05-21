@@ -6,7 +6,7 @@ pipeline {
         REMOTE_PATH = '~'
         DOCKER_COMPOSE_FILE = 'docker-compose.yml'
         DOCKER_FILE = 'Dockerfile'
-        P_KEY = '/Users/engend/Desktop/keys/edKey'
+        P_KEY = '/users/engend/desktop/keys/edkey'
         USER = 'ever-cloud'
         FOLDER = '~/evergrow-bank-ui'
     }
