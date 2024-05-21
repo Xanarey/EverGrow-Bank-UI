@@ -18,19 +18,19 @@ pipeline {
 
         stage('Deploy to Yandex Cloud') {
             steps {
-            sh "sed -i '' 's/http:\\/\\/localhost/http:\\/\\/158.160.165.159/g' .env.production"
+            sh "sed -i '' 's/http:\\/\\/localhost/http:\\/\\/158.160.154.130/g' .env.production"
 
-            sh 'ssh -i /Users/engend/Desktop/keys/edKey ever-cloud@158.160.165.159 "mkdir -p ~/evergrow-bank-ui"'
-            sh 'scp -i /Users/engend/Desktop/keys/edKey Dockerfile ever-cloud@158.160.165.159:~/evergrow-bank-ui'
-            sh 'scp -i /Users/engend/Desktop/keys/edKey .env.production ever-cloud@158.160.165.159:~/evergrow-bank-ui'
-            sh 'scp -i /Users/engend/Desktop/keys/edKey Jenkinsfile ever-cloud@158.160.165.159:~/evergrow-bank-ui'
-            sh 'scp -i /Users/engend/Desktop/keys/edKey default.conf ever-cloud@158.160.165.159:~/evergrow-bank-ui'
-            sh 'scp -i /Users/engend/Desktop/keys/edKey package*.json ever-cloud@158.160.165.159:~/evergrow-bank-ui'
-            sh 'scp -i /Users/engend/Desktop/keys/edKey -r public ever-cloud@158.160.165.159:~/evergrow-bank-ui'
-            sh 'scp -i /Users/engend/Desktop/keys/edKey -r src ever-cloud@158.160.165.159:~/evergrow-bank-ui'
+            sh 'ssh -i /Users/engend/Desktop/keys/edKey ever-cloud@158.160.154.130 "mkdir -p ~/evergrow-bank-ui"'
+            sh 'scp -i /Users/engend/Desktop/keys/edKey Dockerfile ever-cloud@158.160.154.130:~/evergrow-bank-ui'
+            sh 'scp -i /Users/engend/Desktop/keys/edKey .env.production ever-cloud@158.160.154.130:~/evergrow-bank-ui'
+            sh 'scp -i /Users/engend/Desktop/keys/edKey Jenkinsfile ever-cloud@158.160.154.130:~/evergrow-bank-ui'
+            sh 'scp -i /Users/engend/Desktop/keys/edKey default.conf ever-cloud@158.160.154.130:~/evergrow-bank-ui'
+            sh 'scp -i /Users/engend/Desktop/keys/edKey package*.json ever-cloud@158.160.154.130:~/evergrow-bank-ui'
+            sh 'scp -i /Users/engend/Desktop/keys/edKey -r public ever-cloud@158.160.154.130:~/evergrow-bank-ui'
+            sh 'scp -i /Users/engend/Desktop/keys/edKey -r src ever-cloud@158.160.154.130:~/evergrow-bank-ui'
 
-            sh 'scp -i /Users/engend/Desktop/keys/edKey -r build/* ever-cloud@158.160.165.159:~/evergrow-bank-ui'
-            sh 'ssh -i /Users/engend/Desktop/keys/edKey ever-cloud@158.160.165.159 "docker-compose -f ~/docker-compose.yml up -d --build frontend"'
+            sh 'scp -i /Users/engend/Desktop/keys/edKey -r build/* ever-cloud@158.160.154.130:~/evergrow-bank-ui'
+            sh 'ssh -i /Users/engend/Desktop/keys/edKey ever-cloud@158.160.154.130 "docker-compose -f ~/docker-compose.yml up -d --build frontend"'
 
 
             }
