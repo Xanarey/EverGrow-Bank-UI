@@ -16,14 +16,15 @@ function AuthForm() {
 
         try {
             const response = await axios.post(apiUrl + '/auth', { email, password });
+            // Предполагаем, что токен теперь приходит прямо как строка в теле ответа
             localStorage.setItem('token', response.data.token); // Сохраняем токен в localStorage
             window.location.href = '/hello-auth-user'; // Перенаправляем на страницу
         } catch (error) {
             console.error('Ошибка аутентификации', error);
-            // Установка сообщения об ошибке, если аутентификация не удалась
             setErrorMessage('Данные не корректны. Пожалуйста, попробуйте снова.');
         }
     };
+
 
     return (
         <div className="auth-page-wrapper">
