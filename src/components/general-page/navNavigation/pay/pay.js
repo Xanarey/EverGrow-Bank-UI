@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './pay.css';
@@ -14,9 +14,8 @@ const Pay = () => {
     const token = localStorage.getItem('token');
     const [showModal, setShowModal] = useState(false);
     const [message, setMessage] = useState('');
-    const [progress, setProgress] = useState(0); // Для отслеживания прогресса шкалы
+    const [progress, setProgress] = useState(0);
     const apiUrl = process.env.REACT_APP_API_URL;
-
 
     const [sampleTransactions, setSampleTransactions] = useState(() => {
         const savedTransactions = localStorage.getItem('sampleTransactions');
@@ -52,46 +51,47 @@ const Pay = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post(apiUrl + '/transfers',
-                {
+            const response = await axios.post(`${apiUrl}/transfers`, {
                 amount,
                 currency,
                 senderPhoneNumber,
                 recipientPhoneNumber,
                 description,
                 type
-                }, {
-                    headers: {
-                        'Authorization': `${token}` // Убедитесь, что формат соответствует ожиданиям сервера
-                    }
+            }, {
+                headers: {
+                    'Authorization': `${token}`
+                }
             });
 
-            setShowModal(true); // Показываем модальное окно и шкалу
-            const interval = setInterval(() => {
-                setProgress(oldProgress => {
-                    if (oldProgress === 100) {
-                        clearInterval(interval); // Очищаем интервал, если шкала заполнена
-                        return 100;
-                    }
-                    return Math.min(oldProgress + 33, 100); // Увеличиваем шкалу на 33% каждую секунду
-                });
-            }, 500);
+            if (response.data.requiresOtp) {
 
-            addSampleTransaction({ amount, currency, senderPhoneNumber, recipientPhoneNumber, description, type });
-            setMessage(response.data.message); // Сохраняем сообщение от сервера
-            setShowModal(true); // Показываем модальное окно
-            setTimeout(() => {
-                setShowModal(false); // Скрываем модальное окно
-                navigate('/hello-auth-user'); // Перенаправляем на главную
-            }, 3000);
+                navigate('/enter-otp', { state: { transferId: response.data.transferId } });
+            } else {
+                setShowModal(true);
+                const interval = setInterval(() => {
+                    setProgress(oldProgress => {
+                        if (oldProgress === 100) {
+                            clearInterval(interval);
+                            return 100;
+                        }
+                        return Math.min(oldProgress + 33, 100);
+                    });
+                }, 500);
+
+                addSampleTransaction({ amount, currency, senderPhoneNumber, recipientPhoneNumber, description, type });
+                setMessage(response.data.message);
+                setShowModal(true);
+                setTimeout(() => {
+                    setShowModal(false);
+                    navigate('/hello-auth-user');
+                }, 3000);
+            }
 
         } catch (error) {
             console.error('Ошибка при выполнении перевода:', error);
-            // Обработайте ошибки при необходимости
         }
     };
-
-
 
     return (
         <div className="container">
@@ -136,7 +136,7 @@ const Pay = () => {
                 <button type="submit">Выполнить перевод</button>
             </form>
             <div className="progress-container">
-                <div className="progress-bar" style={{width: `${progress}%`}}></div>
+                <div className="progress-bar" style={{ width: `${progress}%` }}></div>
             </div>
 
             <div className="sample-transactions">
@@ -163,7 +163,6 @@ const Pay = () => {
                 ))}
 
             </div>
-
 
             <button onClick={() => navigate('/hello-auth-user')}>Вернуться на главную</button>
         </div>

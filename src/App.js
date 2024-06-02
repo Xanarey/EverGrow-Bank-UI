@@ -7,6 +7,7 @@ import Products from "./components/general-page/navNavigation/products/products"
 import './App.css';
 import History from "./components/general-page/navNavigation/history/history";
 import Pay from "./components/general-page/navNavigation/pay/pay";
+import EnterOtpPage from "./components/EnterOtpPage";
 
 function App() {
 
@@ -20,6 +21,8 @@ function App() {
                 <Route path="/products" element={<Products />} />
                 <Route path="/history" element={<History />} />
                 <Route path="/pay" element={<Pay />} />
+                <Route path="/enter-otp" element={<EnterOtpPage />} />
+                <Route path="/transfer" element={<Pay />} />
             </Routes>
         </Router>
     );
