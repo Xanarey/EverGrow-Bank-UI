@@ -8,6 +8,7 @@ import './App.css';
 import History from "./components/general-page/navNavigation/history/history";
 import Pay from "./components/general-page/navNavigation/pay/pay";
 import EnterOtpPage from "./components/EnterOtpPage";
+import RegisterForm from "./components/register/RegisterForm";
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
                 <Route path="/pay" element={<Pay />} />
                 <Route path="/enter-otp" element={<EnterOtpPage />} />
                 <Route path="/transfer" element={<Pay />} />
+                <Route path="/register" element={<RegisterForm />} />
             </Routes>
         </Router>
     );

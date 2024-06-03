@@ -1,0 +1,52 @@
+.register-container {
+    max-width: 400px; /* Задаем максимальную ширину формы */
+    margin: 40px auto; /* Автоматические отступы слева и справа для центрирования */
+    padding: 20px; /* Отступы внутри контейнера */
+    background: #fff; /* Белый фон */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Тень для контейнера */
+}
+
+.register-container form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* Выравнивание элементов формы на всю ширину контейнера */
+}
+
+.register-container label {
+    font-weight: bold; /* Жирное начертание для меток */
+    margin-bottom: 5px; /* Отступ снизу для метки */
+}
+
+.register-container input,
+.register-container select {
+    width: 100%;  /* Задает ширину на 100% от родительского элемента */
+    padding: 10px;  /* Добавляет внутренние отступы для удобства ввода */
+    margin-bottom: 15px;  /* Отступ снизу для разделения элементов формы */
+    box-sizing: border-box;  /* Учитывает padding и border в общей ширине элемента */
+    border: 1px solid #ccc; /* Граница для полей ввода */
+    border-radius: 5px; /* Скругление углов полей ввода */
+}
+
+.register-container button {
+    width: 100%;  /* Устанавливает ширину кнопки такой же, как и у полей ввода */
+    padding: 10px;  /* Одинаковый padding как у input */
+    margin-top: 5px;  /* Небольшой отступ сверху для разделения кнопки от последнего поля ввода */
+    border: none;  /* Убирает границы у кнопки */
+    background-color: #007BFF; /* Синий цвет фона */
+    color: white;  /* Белый цвет текста */
+    cursor: pointer;  /* Стиль курсора при наведении */
+    border-radius: 5px; /* Скругление углов кнопок */
+}
+
+.register-container button:hover {
+    background-color: #0056b3; /* Темно-синий цвет при наведении */
+}
+
+.register-container .cancel-button {
+    background-color: #6c757d; /* Серый фон кнопки отмены */
+    margin-top: 10px; /* Отступ сверху для кнопки отмены */
+}
+
+.register-container .cancel-button:hover {
+    background-color: #545b62; /* Темно-серый фон при наведении */
+}
