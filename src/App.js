@@ -9,6 +9,8 @@ import History from "./components/general-page/navNavigation/history/history";
 import Pay from "./components/general-page/navNavigation/pay/pay";
 import EnterOtpPage from "./components/EnterOtpPage";
 import RegisterForm from "./components/register/RegisterForm";
+import ResetPassword from "./components/forgot-password/ResetPassword";
+import ForgotPassword from "./components/forgot-password/ForgotPassword";
 
 function App() {
 
@@ -25,6 +27,8 @@ function App() {
                 <Route path="/enter-otp" element={<EnterOtpPage />} />
                 <Route path="/transfer" element={<Pay />} />
                 <Route path="/register" element={<RegisterForm />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/reset-password/:token" element={<ResetPassword />} />
             </Routes>
         </Router>
     );

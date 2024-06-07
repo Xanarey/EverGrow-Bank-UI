@@ -57,6 +57,9 @@ function AuthForm() {
                 <div className="form-group">
                     <Link to="/register">Регистрация</Link>
                 </div>
+                <div className="form-group">
+                    <Link to="/forgot-password">Восстановить доступ</Link>
+                </div>
             </form>
 
         </div>
