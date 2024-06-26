@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './ForgotPassword.css';
+import {useNavigate} from "react-router-dom";
 
 function ForgotPassword() {
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -52,11 +54,14 @@ function ForgotPassword() {
                     <button type="submit" disabled={isButtonDisabled}>
                         {isButtonDisabled ? (
                             <div className="progress-bar">
-                                <div className="progress" style={{ width: `${progress}%` }}></div>
+                                <div className="progress" style={{width: `${progress}%`}}></div>
                             </div>
                         ) : (
                             'Отправить'
                         )}
+                    </button>
+                    <button onClick={() => navigate('/hello-auth-user')} className="back-home-button">
+                        Вернуться на главную
                     </button>
                 </div>
                 {message && <div>{message}</div>}
