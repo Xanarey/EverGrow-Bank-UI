@@ -59,11 +59,20 @@ function AuthForm() {
                 </div>
                 <div className="form-group">
                     <Link to="/forgot-password">Восстановить доступ</Link>
+
                 </div>
+                <div className="footer-info">
+                    <strong>EverGrow Finance</strong> | General License of the Bank of ... No-1954-AI.<br/>
+                    Email: xenor.flow@mail.ru<br/>
+                    <em>Your reliable partner in the financial world.</em>
+                </div>
+
+
             </form>
 
         </div>
         </div>
+
     );
 }
 
