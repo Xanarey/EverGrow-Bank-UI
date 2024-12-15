@@ -40,12 +40,8 @@ function ForgotPassword() {
 
         <div className="forgot-password-container">
             <form onSubmit={handleSubmit}>
-                <img src={`${process.env.PUBLIC_URL}/DALL·E - logo  'EverGrowFinance' .png`} alt="Логотип"
+                <img src={`${process.env.PUBLIC_URL}/EGF.png`} alt="Логотип"
                      className="logo"/>
-                <button onClick={() => navigate('/hello-auth-user')} className="back-home-button">
-                     На главную
-                </button>
-
                 <div className="form-group">
                     <input
                         type="email"
@@ -64,6 +60,9 @@ function ForgotPassword() {
                         ) : (
                             'Отправить'
                         )}
+                    </button>
+                    <button onClick={() => navigate('/hello-auth-user')} className="back-home-button">
+                        Вернуться на главную
                     </button>
                 </div>
                 {message && <div>{message}</div>}

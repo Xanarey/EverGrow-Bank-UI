@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './RegisterForm.css';
-import {useNavigate} from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 
 function RegisterForm() {
     const navigate = useNavigate();
@@ -34,37 +33,37 @@ function RegisterForm() {
     return (
         <div className="register-container">
             <form onSubmit={handleRegister}>
-                <h2>Регистрация</h2>
-                <div>
-                    <label>Email:</label>
-                    <input type="email" value={email} onChange={e => setEmail(e.target.value)} required/>
+                <img src={`${process.env.PUBLIC_URL}/EGF.png`} alt="Логотип" className="logo"/>
+                <div className="form-group">
+                    <input type="email" value={email} onChange={e => setEmail(e.target.value)}
+                           placeholder="Введите ваш email" required/>
                 </div>
-                <div>
-                    <label>Пароль:</label>
-                    <input type="password" value={password} onChange={e => setPassword(e.target.value)} required/>
+                <div className="form-group">
+                    <input type="password" value={password} onChange={e => setPassword(e.target.value)}
+                           placeholder="Введите ваш пароль" required/>
                 </div>
-                <div>
-                    <label>Номер телефона:</label>
-                    <input type="text" value={phoneNumber} onChange={e => setPhoneNumber(e.target.value)} required/>
+                <div className="form-group">
+                    <input type="text" value={phoneNumber} onChange={e => setPhoneNumber(e.target.value)}
+                           placeholder="Введите ваш номер телефона" required/>
                 </div>
-                <div>
-                    <label>Тип кошелька:</label>
+                <div className="form-group">
                     <select value={walletType} onChange={e => setWalletType(e.target.value)}>
                         <option value="CURRENT">Текущий</option>
                         <option value="CREDIT">Кредитный</option>
                         <option value="CUMULATIVE">Накопительный</option>
                     </select>
                 </div>
-                <div>
-                    <button type="submit">Сохранить</button>
+                <div className="form-group">
+                    <button type="submit" className="submit-button">Сохранить</button>
+                    <button type="button" onClick={() => navigate('/hello-auth-user')} className="submit-button">
+                        Вернуться на главную
+                    </button>
                 </div>
-                {/* eslint-disable-next-line no-undef */}
-                <button onClick={() => navigate('/hello-auth-user')} className="back-home-button">
-                    Вернуться на главную
-                </button>
+
 
                 {errorMessage && <div style={{color: 'red'}}>{errorMessage}</div>}
             </form>
+
         </div>
     );
 }

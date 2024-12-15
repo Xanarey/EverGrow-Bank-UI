@@ -1,52 +1,80 @@
+/* Контейнер формы */
 .register-container {
-    max-width: 400px; /* Задаем максимальную ширину формы */
-    margin: 40px auto; /* Автоматические отступы слева и справа для центрирования */
-    padding: 20px; /* Отступы внутри контейнера */
-    background: #fff; /* Белый фон */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Тень для контейнера */
-}
-
-.register-container form {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
     flex-direction: column;
-    align-items: stretch; /* Выравнивание элементов формы на всю ширину контейнера */
+    text-align: center;
+    width: 100%;
+    background: linear-gradient(to right, #000000, #2e7cff);
 }
 
-.register-container label {
-    font-weight: bold; /* Жирное начертание для меток */
-    margin-bottom: 5px; /* Отступ снизу для метки */
+/* Стили формы */
+.register-container form {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 400px;
+    background-color: #000; /* Темный фон */
+    padding: 1.5em;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
 }
 
-.register-container input,
-.register-container select {
-    width: 100%;  /* Задает ширину на 100% от родительского элемента */
-    padding: 10px;  /* Добавляет внутренние отступы для удобства ввода */
-    margin-bottom: 15px;  /* Отступ снизу для разделения элементов формы */
-    box-sizing: border-box;  /* Учитывает padding и border в общей ширине элемента */
-    border: 1px solid #ccc; /* Граница для полей ввода */
-    border-radius: 5px; /* Скругление углов полей ввода */
+.form-group input, .form-group select {
+    width: 100%;
+    margin-top: 0.5em;
+    height: 44px; /* Общая высота для всех элементов */
+    padding: 0.8em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1.1em;
+    box-sizing: border-box;
+    outline: none;
 }
 
-.register-container button {
-    width: 100%;  /* Устанавливает ширину кнопки такой же, как и у полей ввода */
-    padding: 10px;  /* Одинаковый padding как у input */
-    margin-top: 5px;  /* Небольшой отступ сверху для разделения кнопки от последнего поля ввода */
-    border: none;  /* Убирает границы у кнопки */
-    background-color: #007BFF; /* Синий цвет фона */
-    color: white;  /* Белый цвет текста */
-    cursor: pointer;  /* Стиль курсора при наведении */
-    border-radius: 5px; /* Скругление углов кнопок */
+/* Кнопки */
+.submit-button {
+    display: block; /* Убедимся, что кнопки занимают всю ширину родителя */
+    width: 100%;
+    padding: 0.8em;
+    text-align: center; /* Текст по центру */
+    background-color: #4caf50; /* Зеленый цвет */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 0.5em;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
-.register-container button:hover {
-    background-color: #0056b3; /* Темно-синий цвет при наведении */
+.submit-button:hover {
+    background-color: #367c39;
 }
 
-.register-container .cancel-button {
-    background-color: #6c757d; /* Серый фон кнопки отмены */
-    margin-top: 10px; /* Отступ сверху для кнопки отмены */
+.back-home-button {
+    background-color: #3578e5;
 }
 
-.register-container .cancel-button:hover {
-    background-color: #545b62; /* Темно-серый фон при наведении */
+
+
+/* Логотип */
+.logo {
+    width: 120px;
+    height: auto;
+    margin-bottom: 1em;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .register-container form {
+        padding: 1em;
+    }
+
+    .form-group input, .form-group select,
+    .submit-button {
+        font-size: 1em;
+    }
 }
