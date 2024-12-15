@@ -26,7 +26,7 @@ const History = () => {
         };
 
         fetchTransactions();
-    }, [apiUrl]); // Пустой массив зависимостей означает, что эффект выполнится один раз после монтирования компонента
+    }, [apiUrl]);
 
     return (
         <div className="container">

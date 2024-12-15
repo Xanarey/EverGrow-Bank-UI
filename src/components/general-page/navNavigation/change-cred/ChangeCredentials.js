@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './change-credentials.css';
-import axios from "axios";
+import axios from 'axios';
 
 const ChangeCredentials = () => {
     const navigate = useNavigate();
@@ -11,106 +11,76 @@ const ChangeCredentials = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const token = localStorage.getItem('token');
+
     const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [message, setMessage] = useState('');
+    const [passwordMessage, setPasswordMessage] = useState('');
     const apiUrl = process.env.REACT_APP_API_URL;
 
-
+    // Загрузка данных пользователя
     useEffect(() => {
-        fetch(apiUrl + '/users/me', {
-            method: 'GET',
-            headers: {
-                Authorization: token,
-            },
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Ошибка при получении данных');
-                }
-                return response.json();
-            })
-            .then(data => {
-                setUserData(data);
+        const fetchUserData = async () => {
+            try {
+                const response = await axios.get(`${apiUrl}/users/me`, {
+                    headers: { Authorization: token },
+                });
+                setUserData(response.data);
+            } catch (err) {
+                setError('Ошибка при получении данных пользователя');
+            } finally {
                 setLoading(false);
-            })
-            .catch(error => {
-                setError(error.message);
-                setLoading(false);
-            });
+            }
+        };
+        fetchUserData();
     }, [apiUrl, token]);
 
-    const handleSubmit = async (e) => {
+    // Обновление email
+    const handleEmailUpdate = async (e) => {
         e.preventDefault();
-        fetch(apiUrl + '/users', {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `${token}`
-            },
-            body: JSON.stringify({email: newEmail}),
-        })
-            .then(async response => {
-                if (!response.ok) {
-                    const text = await response.text(); // Получаем текст ответа для чтения сообщения об ошибке
-                    throw new Error('Ошибка при обновлении данных: ' + text);
-                }
-                return response.text(); // Используем response.text() вместо response.json(), если ожидаем текстовый ответ
-            })
-            .then(text => {
-                setSuccessMessage(text); // Устанавливаем текстовое сообщение от сервера
-                // Опционально: обновите email в текущем состоянии пользователя
-                setUserData(prevState => ({...prevState, email: newEmail}));
-            })
-            .catch(error => {
-                setError(error.message);
-            });
+        try {
+            const response = await axios.put(
+                `${apiUrl}/users`,
+                { email: newEmail },
+                { headers: { Authorization: token } }
+            );
+            setSuccessMessage(response.data);
+            setUserData((prev) => ({ ...prev, email: newEmail }));
+        } catch (err) {
+            setError('Ошибка при обновлении email');
+        }
+    };
 
+    // Смена пароля
+    const handlePasswordChange = async (e) => {
+        e.preventDefault();
         if (newPassword !== confirmPassword) {
-            setMessage("Новый пароль и подтверждение не совпадают.");
+            setPasswordMessage('Новый пароль и подтверждение не совпадают.');
             return;
         }
 
         try {
-            const response = await axios.put(apiUrl + '/users/change-password', {
-                oldPassword,
-                newPassword,
-                confirmPassword
-            }, {
-                headers: {
-                    'Authorization': token
-                }
-            });
-
-            setMessage(response.data); // Предполагается, что сервер возвращает строку
-        } catch (error) {
-            setMessage(error.response.data);
+            const response = await axios.put(
+                `${apiUrl}/users/change-password`,
+                { oldPassword, newPassword, confirmPassword },
+                { headers: { Authorization: token } }
+            );
+            setPasswordMessage(response.data); // Сообщение от сервера
+        } catch (err) {
+            setPasswordMessage('Ошибка при смене пароля');
         }
     };
 
+    if (loading) return <div>Загрузка...</div>;
+    if (error) return <div>Ошибка: {error}</div>;
 
-
-
-    if (loading) {
-        return <div>Загрузка...</div>;
-    }
-
-    if (error) {
-        return <div>Ошибка: {error}</div>;
-    }
-
-    // В компоненте ChangeCredentials.jsx
-// ...
     return (
         <div className="container">
             <h1>Изменение учетных данных</h1>
-            {userData && (
-                <div className="user-data">
-                    <p>Текущий Email: {userData.email}</p>
-                </div>
-            )}
-            <form onSubmit={handleSubmit} className="email-update-form">
+            {userData && <p>Текущий Email: {userData.email}</p>}
+
+            {/* Форма для обновления email */}
+            <form onSubmit={handleEmailUpdate} className="email-update-form">
                 <input
                     type="email"
                     value={newEmail}
@@ -121,12 +91,11 @@ const ChangeCredentials = () => {
                 <button type="submit">Сохранить</button>
             </form>
             {successMessage && <div className="success-message">{successMessage}</div>}
-            <button onClick={() => navigate('/hello-auth-user')} className="back-home-button">
-                Вернуться на главную
-            </button>
+
+            {/* Форма для смены пароля */}
             <div className="change-password-container">
                 <h2>Смена пароля</h2>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handlePasswordChange}>
                     <input
                         type="password"
                         value={oldPassword}
@@ -150,12 +119,14 @@ const ChangeCredentials = () => {
                     />
                     <button type="submit">Сменить пароль</button>
                 </form>
-                {message && <p>{message}</p>}
+                {passwordMessage && <p>{passwordMessage}</p>}
             </div>
+
+            <button onClick={() => navigate('/hello-auth-user')} className="back-home-button">
+                Вернуться на главную
+            </button>
         </div>
     );
-// ...
-
-}
+};
 
 export default ChangeCredentials;

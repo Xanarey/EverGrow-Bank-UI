@@ -1,8 +1,7 @@
-// src/components/EnterOtpPage.js
-
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import './enter-otp.css';
 
 const EnterOtpPage = () => {
     const [otp, setOtp] = useState('');
@@ -28,7 +27,7 @@ const EnterOtpPage = () => {
     };
 
     return (
-        <div>
+        <div className="container">
             <h1>Enter OTP</h1>
             <input
                 type="text"

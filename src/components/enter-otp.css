@@ -1,0 +1,79 @@
+/* Основной контейнер */
+.container {
+    max-width: 400px; /* Ограничиваем ширину */
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #000; /* Темный фон */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5); /* Тень */
+    border-radius: 10px; /* Скругленные углы */
+    text-align: center;
+}
+
+/* Заголовок */
+h1 {
+    color: #fff; /* Белый цвет текста */
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Поле ввода */
+input {
+    width: 100%;
+    height: 44px;
+    margin-top: 0.8em;
+    padding: 0.8em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #333;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus {
+    border-color: #4caf50;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* Зелёный акцент */
+}
+
+/* Кнопка отправки */
+button {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.8em;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #4caf50; /* Зеленый цвет кнопки */
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+button:hover {
+    background-color: #367c39; /* Темно-зеленый при наведении */
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: scale(0.98); /* Небольшое уменьшение при нажатии */
+}
+
+/* Медиа-запросы для мобильных устройств */
+@media (max-width: 768px) {
+    .container {
+        padding: 1.5rem;
+    }
+
+    h1 {
+        font-size: 1.3rem;
+    }
+
+    button {
+        font-size: 0.9rem;
+    }
+}
